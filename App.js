@@ -1,34 +1,37 @@
 import React, { Fragment } from "react";
-import { Searchbar } from "react-native-paper";
-import { StyleSheet, Text, View, SafeAreaView, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
+import { RestaurantsScreen } from "./src/features/restaurants/screens/restaurants.screen";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./src/infrastructure/theme";
+import {
+  useFonts as useOswaldFont,
+  Oswald_400Regular,
+} from "@expo-google-fonts/oswald";
+import {
+  useFonts as useLatoFont,
+  Lato_400Regular,
+} from "@expo-google-fonts/lato";
 
 export default function App() {
+  const [oswaldFontsLoaded] = useOswaldFont({
+    Oswald_400Regular,
+  });
+
+  const [latoFontsLoaded] = useLatoFont({
+    Lato_400Regular,
+  });
+
+  if (!oswaldFontsLoaded || latoFontsLoaded) {
+    return null;
+  }
+
   return (
     <Fragment>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.searchBar}>
-          <Searchbar type="bar" placeholder="Search" />
-        </View>
-        <View style={styles.content}>
-          <Text>content</Text>
-        </View>
-      </SafeAreaView>
+      <ThemeProvider theme={theme}>
+        <RestaurantsScreen />
+      </ThemeProvider>
+
       <StatusBar style="auto" />
     </Fragment>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  searchBar: {
-    justifyContent: "center",
-    padding: 10,
-  },
-  content: {
-    flex: 1,
-    backgroundColor: "green",
-    padding: 10,
-  },
-});

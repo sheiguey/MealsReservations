@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components/native";
 import { Card } from "react-native-paper";
-
+import { View } from "react-native";
+import { SvgXml } from "react-native-svg";
+import start from "../../../../assets/start";
 const RestaurantCard = styled(Card)`
   background-color: white;
 `;
@@ -11,10 +13,19 @@ const RestaurantCardCover = styled(Card.Cover)`
   background-color: white;
 `;
 
+const Info = styled(View)`
+  padding: ${(props) => props.theme.space[3]};
+`;
+
 const Title = styled.Text`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.body};
-  padding: ${(props) => props.theme.space[3]};
+  color: ${(props) => props.theme.colors.ui.primary};
+`;
+
+const Adress = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.caption};
   color: ${(props) => props.theme.colors.ui.primary};
 `;
 
@@ -25,7 +36,7 @@ export const RestaurantInfo = ({ restaurant = {} }) => {
     photos = [
       "https://api.fd-squad.com/storage/images/shops/background/101-1726634737.webp",
     ],
-    address,
+    address = "Douala, Logpom 4eme Avenue",
     openingHours,
     rating,
     isClosedTemporarily,
@@ -34,7 +45,11 @@ export const RestaurantInfo = ({ restaurant = {} }) => {
   return (
     <RestaurantCard elevation={5}>
       <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
-      <Title>{name}</Title>
+      <Info>
+        <Title>{name}</Title>
+        <SvgXml xml={start} width={20} height={20} />
+        <Adress>{address}</Adress>
+      </Info>
     </RestaurantCard>
   );
 };

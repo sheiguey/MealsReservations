@@ -2,10 +2,11 @@ import React from "react";
 import { Text } from "react-native";
 import styled from "styled-components";
 import { RestaurantInfo } from "./restaurant-info.component";
+import { Badge } from "react-native-paper"
 
 const RestaurantListView = styled.View`
   flex: 1;
-  backgroundcolor: green;
+  gap:10px;
   padding: 10px;
 `;
 

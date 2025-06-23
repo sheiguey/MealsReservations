@@ -1,14 +1,11 @@
-import React from "react";
+import { useContext } from "react";
 import { Searchbar } from "react-native-paper";
 import styled from "styled-components";
-import { SafeAreaView, ScrollView, StatusBar, FlatList } from "react-native";
+import { ScrollView, FlatList } from "react-native";
 import { RestaurantList } from "../components/restaurant-list.component";
 import { RestaurantInfo } from "../components/restaurant-info.component";
-
-const SafArea = styled(SafeAreaView)`
-  flex: 1;
-  ${StatusBar.currentHeight && `marginTop:${StatusBar.currentHeight}`} 
-`;
+import { SafArea } from "../../../components/utility/safe-area.component";
+import { restaurantContext } from "../../../services/restaurants/restaurants.context";
 
 const SearchBarContainer = styled.View`
   padding: 10px;
@@ -22,20 +19,22 @@ const RestaurantListContainerView = styled(ScrollView)`
 
 const RestaurantListContainer = styled(FlatList).attrs({
   contentContainerStyle: {
-    padding: 16
+    padding: 10
   }
 })``;
 
 
 
 export const RestaurantsScreen = () => {
+
+  const { restaurants } = useContext(restaurantContext)
   return (
     <SafArea>
       <SearchBarContainer>
         <Searchbar type="bar" placeholder="Search" />
       </SearchBarContainer>
       <RestaurantListContainer
-        data={[{ name: 1 }, { name: 2 }, { name: 3 }, { name: 4 }, { name: 5 }, { name: 6 }]}
+        data={restaurants}
         renderItem={() => <RestaurantInfo />}
         keyExtractor={(item) => item.name}
       />
